@@ -1,0 +1,126 @@
+<!--suppress HtmlUnknownAttribute, HtmlUnknownTag -->
+<nz-spin [nzSpinning]="spinning">
+
+  <!-- custom page header start -->
+  <div class="content__title ad-ph">
+    <nz-breadcrumb class="ant-breadcrumb ng-star-inserted">
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin-navigation'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <a routerLink="/console/home" class="ng-star-inserted">{{ 'uri.console.home'| translate }}</a>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin.authorize'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin.authorize.permit'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted"></span>
+        </span>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="detail">
+      <div class="main">
+        <div class="row">
+          <h1 class="title ng-star-inserted">{{ 'uri.console.admin.authorize.permit'| translate }}</h1>
+        </div>
+        <div class="row">
+          <div class="desc">
+            {{ 'uri.console.admin.authorize.permit'| translate }} 说明文字......
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- custom page header end -->
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzXs]="32" [nzSm]="12" [nzMd]="96">
+      <nz-card nzTitle="权限树列表" style="width: 100%;" [nzExtra]="extraTemplate">
+        <ng-template #extraTemplate>
+          <button nz-button [nzType]="'primary'" (click)="handle('add', 'root')">
+            <i nz-icon type="plus"></i><span>新增(根ROOT)导航</span>
+          </button>
+        </ng-template>
+        <nz-tree
+          (nzClick)="nzClick($event)"
+          [nzData]="nodes"
+          [nzShowIcon]="true">
+        </nz-tree>
+      </nz-card>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="16">
+      <nz-modal [(nzVisible)]="visible" nzTitle="详情" (nzOnCancel)="close()" [nzFooter]="null">
+        <nz-card nzTitle="详情与操作" class="ant-card__body-nopadding" [nzExtra]="extraContact">
+          <ng-template #extraContact>
+            <nz-tooltip [nzTitle]="'联系管理员'">
+              <a nz-tooltip (click)="contact()"><i class="anticon anticon-message display-3"></i></a>
+            </nz-tooltip>
+          </ng-template>
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" [nzGutter]="8">
+            <div nz-col [nzSpan]="6">
+              <strong class="display-1 text-blur" style="font-size: 96px">
+                <i nz-icon type="{{selected.icon.substring(selected.icon.indexOf('-')+1)}}" style="color: lightseagreen;"></i>
+              </strong>
+              {{selected.text}}
+            </div>
+            <div nz-col [nzSpan]="12" class="my-md pl-md border-left-1" style="font-size: 12px">
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'error'"></nz-badge>
+                权限父ID <strong class="text-red">{{selected.pid}}</strong>
+              </div>
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'error'"></nz-badge>
+                权限ID <strong class="text-red">{{selected.id}}</strong>
+              </div>
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'success'"></nz-badge>
+                权限名称 <strong class="text-green">{{selected.text}}</strong>
+              </div>
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'success'"></nz-badge>
+                权限链接 <strong class="text-green">{{selected.link}}</strong>
+              </div>
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'success'"></nz-badge>
+                权限国际 <strong class="text-green">{{selected.i18n}}</strong>
+              </div>
+              <div class="pb-sm">
+                <nz-badge [nzStatus]="'success'"></nz-badge>
+                权限图标 <strong class="text-green">{{selected.icon}}</strong>
+              </div>
+            </div>
+          </div>
+          <div nz-row class="text-center border-top-1">
+            <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+              <button nz-button [nzType]="'primary'" (click)="handle('add', '')">
+                <i class="icon-magnifier-add"></i><span>添加子项</span>
+              </button>
+            </div>
+            <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+              <button nz-button [nzType]="'primary'" nzGhost (click)="handle('edit', '')">
+                <i class="anticon anticon-edit"></i><span>修改</span>
+              </button>
+            </div>
+            <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+              <button nz-button [nzType]="'danger'" (click)="handle('del', '')">
+                <i class="anticon anticon-delete"></i><span>删除</span>
+              </button>
+            </div>
+          </div>
+        </nz-card>
+      </nz-modal>
+    </div>
+  </div>
+</nz-spin>

@@ -1,0 +1,136 @@
+<!--suppress HtmlUnknownAttribute, HtmlUnknownTag -->
+<nz-spin [nzSpinning]="btnLoading" [nzSize]="'large'">
+
+  <div class="modal-header">
+    <div class="modal-title">新增{{pre}}</div>
+  </div>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="pText">
+        {{pre}}父名称
+        <nz-tooltip [nzTitle]="'由系统自动获取不可更改'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="pText"></label><input nz-input formControlName="pText" id="pText" readonly/>
+        <nz-form-explain
+          *ngIf="ctl('pText').dirty&&ctl('pText').hasError('required')">
+          {{pre}}父名称错误!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="pid">
+        {{pre}}父ID
+        <nz-tooltip [nzTitle]="'由系统自动获取不可更改'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="pid"></label><input nz-input formControlName="pid" id="pid" readonly/>
+        <nz-form-explain
+          *ngIf="ctl('pid').dirty&&ctl('pid').hasError('required')">
+          {{pre}}父ID错误!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="id">
+                    <span>
+                      {{pre}}ID
+                      <nz-tooltip [nzTitle]="'由系统自动运算分配得出不可更改'">
+                        <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+                      </nz-tooltip>
+                    </span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="id"></label><input nz-input formControlName="id" id="id" readonly/>
+        <nz-form-explain *ngIf="ctl('id').dirty&&ctl('id').hasError('required')">
+          {{pre}}ID错误!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="text">
+                    <span>
+                      {{pre}}名称
+                      <nz-tooltip [nzTitle]="'显示的文本名称'">
+                        <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+                      </nz-tooltip>
+                    </span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="text"></label><input nz-input formControlName="text" id="text"/>
+        <nz-form-explain
+          *ngIf="ctl('text').dirty&&ctl('text').hasError('required')">
+          请填写{{pre}}名称!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="link">
+                    <span>
+                      链接URL
+                      <nz-tooltip [nzTitle]="'相对项目的url地址'">
+                        <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+                      </nz-tooltip>
+                    </span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="link"></label><input nz-input formControlName="link" id="link"/>
+        <nz-form-explain
+          *ngIf="ctl('link').dirty&&ctl('link').hasError('required')">
+          请填写链接URL!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="i18n">
+                    <span>
+                      国际化key值
+                      <nz-tooltip [nzTitle]="'国际化的key值, 默认使用链接地址'">
+                        <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+                      </nz-tooltip>
+                    </span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="i18n"></label><input nz-input formControlName="i18n" id="i18n" value="{{ctl('link').value}}" readonly (change)="i18nChange()"/>
+        <nz-form-explain
+          *ngIf="ctl('i18n').dirty&&ctl('i18n').hasError('required')">
+          请填写国际化key值!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="icon">
+                    <span>
+                      图标
+                      <nz-tooltip [nzTitle]="'https://ng.ant.design/components/icon/zh'">
+                        <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+                      </nz-tooltip>
+                    </span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <label for="icon"></label><input nz-input formControlName="icon" id="icon" (change)="iconChange()"/>
+        <nz-form-explain
+          *ngIf="ctl('icon').dirty&&ctl('icon').hasError('required')">
+          请填写图标样式!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+  <div class="modal-footer">
+    <button nz-button [nzType]="'default'" [nzLoading]="btnLoading" (click)="cancel('onCancel')">{{cancel_btn}}</button>
+    <button nz-button [nzType]="'primary'" [nzLoading]="btnLoading" (click)="submit()">{{submit_btn}}</button>
+  </div>
+</nz-spin>

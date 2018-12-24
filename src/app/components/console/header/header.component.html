@@ -1,0 +1,76 @@
+<!--suppress HtmlUnknownTarget, HtmlUnknownTag, HtmlUnknownAttribute -->
+<div class="logo">
+  <a [routerLink]="['/']">
+    <img class="expanded" src="./assets/images/bd-logo-full.svg" alt="{{settings.app.name}}" style="max-height:40px;"/>
+    <img class="collapsed" src="/assets/images/bd-logo.svg" alt="{{settings.app.name}}" style="max-height:30px;"/>
+  </a>
+</div>
+<div class="top-nav-wrap">
+  <ul class="top-nav">
+    <!-- Menu -->
+    <li>
+        <div class="item" (click)="toggleCollapsedSidebar()">
+          <i nz-icon type="{{settings.layout.collapsed ? 'double-right' : 'double-left'}}" theme="outline"
+             [twoToneColor]="'#eb2f96'"></i>
+          <nz-tag [nzColor]="'magenta'" *ngIf="settings.layout.collapsed">{{ 'console.header.unfold' | translate }}</nz-tag>
+          <nz-tag [nzColor]="'purple'" *ngIf="!settings.layout.collapsed">{{ 'console.header.fold' | translate }}</nz-tag>
+        </div>
+    </li>
+    <!-- Github Page -->
+    <li>
+      <a class="item" href="//ng.ant.design/docs/introduce/en" target="_blank">
+        <!--<img src="//ng.ant.design/assets/img/logo.svg" width="22">-->
+        <i nz-icon type="ant-design" theme="outline"></i>
+      </a>
+    </li>
+    <!-- Lock Page -->
+    <li class="hidden-xs">
+      <div class="item" [routerLink]="['/lock']">
+        <i class="anticon anticon-lock"></i>
+      </div>
+    </li>
+    <!-- Search Button -->
+    <li class="header-search__btn" (click)="searchToggleChange()">
+      <div class="item">
+        <i class="anticon anticon-search"></i>
+      </div>
+    </li>
+  </ul>
+  <app-console-header-search class="header-search" [toggleChange]="searchToggleStatus"></app-console-header-search>
+  <ul class="top-nav">
+    <!-- Notify -->
+    <li>
+      <app-console-header-notify></app-console-header-notify>
+    </li>
+    <!-- Task -->
+    <!--<li class="hidden-xs">
+      <app-console-header-task></app-console-header-task>
+    </li>-->
+    <!-- App Icons -->
+    <li class="hidden-xs">
+      <app-console-header-application></app-console-header-application>
+    </li>
+    <!-- Settings -->
+    <li class="hidden-xs">
+      <nz-dropdown nzTrigger="click" nzPlacement="bottomRight">
+        <div class="item" nz-dropdown>
+          <i class="anticon anticon-setting"></i>
+        </div>
+        <div nz-menu style="width:200px;">
+          <div nz-menu-item>
+            <app-console-header-fullscreen></app-console-header-fullscreen>
+          </div>
+          <div nz-menu-item>
+            <app-console-header-storage></app-console-header-storage>
+          </div>
+          <div nz-menu-item>
+            <app-console-header-i18n></app-console-header-i18n>
+          </div>
+        </div>
+      </nz-dropdown>
+    </li>
+    <li class="hidden-xs">
+      <app-console-header-user></app-console-header-user>
+    </li>
+  </ul>
+</div>

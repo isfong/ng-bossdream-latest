@@ -1,0 +1,100 @@
+<!--suppress HtmlUnknownAttribute, HtmlUnknownTag -->
+<nz-spin [nzSpinning]="loading">
+
+  <!-- custom page header start -->
+  <div class="content__title ad-ph">
+    <nz-breadcrumb class="ant-breadcrumb ng-star-inserted">
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin-navigation'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <a routerLink="/console/home" class="ng-star-inserted">{{ 'uri.console.home'| translate }}</a>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin.authorize'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted">{{ 'uri.console.admin.authorize.role'| translate }}</span>
+        </span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item class="ng-star-inserted">
+        <span class="ant-breadcrumb-link">
+          <span class="ng-star-inserted"></span>
+        </span>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="detail">
+      <div class="main">
+        <div class="row">
+          <h1 class="title ng-star-inserted">{{ 'uri.console.admin.authorize.role'| translate }}</h1>
+        </div>
+        <div class="row">
+          <div class="desc">
+            {{ 'uri.console.admin.authorize.role'| translate }} 说明文字......
+            <div class="text-center">
+              <nz-input-group nzSearch [nzSuffix]="suffixButton" style="width: 520px;">
+                <input type="text" [(ngModel)]="keywords" nz-input placeholder="请输入角色名称/角色代码">
+                <ng-template #suffixButton>
+                  <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon type="search" theme="outline"></i>搜索
+                  </button>
+                </ng-template>
+              </nz-input-group>
+            </div>
+            <button nz-button (click)="add()" [nzType]="'primary'">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- custom page header end -->
+
+  <nz-list [nzLoading]="loading" [nzDataSource]="roles" [nzRenderItem]="item"
+           [nzGrid]="{gutter: 24, lg: 6, md: 8, sm: 12, xs: 24 }">
+    <ng-template #item let-item>
+      <nz-list-item>
+        <nz-card nzHoverable [nzActions]="[op1,op2,op3,op4]" [nzCover]="coverTemplate">
+          <ng-template #coverTemplate>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+          </ng-template>
+          <ng-template #op1>
+            <nz-tooltip [nzTitle]="'删除'">
+              <i nz-tooltip nz-icon type="delete" [twoToneColor]="'#eb1b05'" [theme]="'twotone'"
+                 (click)="delete(item)"></i>
+            </nz-tooltip>
+          </ng-template>
+          <ng-template #op2>
+            <nz-tooltip [nzTitle]="'编辑'">
+              <i nz-tooltip nz-icon type="edit" [twoToneColor]="'#eba308'" [theme]="'twotone'" (click)="edit(item)"></i>
+            </nz-tooltip>
+          </ng-template>
+          <ng-template #op3>
+            <nz-tooltip [nzTitle]="'权限'">
+              <i nz-tooltip nz-icon type="lock" [twoToneColor]="'#0ceb87'" [theme]="'twotone'" (click)="permits(item)"></i>
+            </nz-tooltip>
+          </ng-template>
+          <ng-template #op4>
+            <nz-tooltip [nzTitle]="item.notes">
+              <i nz-tooltip nz-icon type="info-circle" [twoToneColor]="'#0f86eb'" [theme]="'twotone'"
+                 (click)="msg.info(item.notes)"></i>
+            </nz-tooltip>
+          </ng-template>
+          <nz-card-meta [nzTitle]="item.name" [nzAvatar]="nzAvatar" [nzDescription]="item.code">
+            <ng-template #nzAvatar>
+              <nz-avatar [nzSize]="'large'" [nzSrc]="prefix+item.avatar"></nz-avatar>
+            </ng-template>
+          </nz-card-meta>
+        </nz-card>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</nz-spin>

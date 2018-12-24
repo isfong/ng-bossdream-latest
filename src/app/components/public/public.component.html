@@ -1,0 +1,59 @@
+<!--suppress HtmlUnknownTarget, HtmlUnknownAttribute, HtmlUnknownTag -->
+<template class="container">
+  <div class="wrap">
+    <div class="top">
+      <div class="head">
+        <a routerLink="/redirect" [queryParams]="{to: '/'}" [skipLocationChange]="true">
+          <img class="logo" src="./assets/images/logo1.png">
+        </a>
+        <nz-tabset [nzSize]="'default'" [nzSelectedIndex]="tabSelectedNum">
+          <nz-tab *ngFor="let nav of navigationList" [nzTitle]="titleTemplate" (nzClick)="tabClick(nav)">
+            <ng-template #titleTemplate>
+              <i nz-icon type="{{nav.icon}}" theme="fill"></i>{{ nav.title | translate }}
+            </ng-template>
+          </nz-tab>
+        </nz-tabset>
+        <div style="margin-top: 28px;">
+          <nz-dropdown>
+            <div nz-dropdown style="font-size: 16px">
+              <i nz-icon type="global" theme="outline" style="font-size: 18px; color: #00a8e6"></i>
+              {{ 'language' | translate}}
+              <i class="anticon anticon-down"></i>
+            </div>
+            <ul nz-menu>
+              <li nz-menu-item *ngFor="let item of languages"
+                  [nzSelected]="item.code === settings.layout.lang"
+                  (click)="languageChange(item.code)">
+                <i nz-icon *ngIf="item.code === 'zh-CN'" style="font-size: 18px">
+                  <svg>
+                    <path d="M11.321867 1017.710074h1520.904177V6.289926H11.321867v1011.420148z m1524.678133 3.773955v-3.773955 3.773955zM5.031941 1024V0h1533.48403v1024H5.031941z" fill="#353636" p-id="3034"></path><path d="M8.805897 2.515971h1527.194103V1020.226044H8.805897z" fill="#D64B24" p-id="3035"></path><path d="M264.176904 118.250614l32.707617 99.380836h104.412776L317.012285 278.014742l31.449631 99.380835L264.176904 315.7543l-84.285012 61.641277 32.707617-99.380835-84.285013-60.383292h104.412777zM535.90172 65.415233l-1.257985 35.223588 31.449631 12.579852-33.965602 8.805897-1.257985 33.965602-18.869779-28.933661-32.707617 7.547912 21.38575-26.417691-17.611794-28.933661 31.449632 13.837838zM652.894349 177.375921l-15.095823 30.191647 23.90172 23.901719-33.965602-5.031941-15.095823 30.191647-5.031941-33.965602-33.965602-5.031941L603.832924 202.535627l-5.031941-33.965602 23.90172 23.901719zM617.670762 315.7543l11.321867 32.707616h33.965602l-27.675676 20.127765 10.063882 32.707616-27.675675-20.127764-27.675676 20.127764 11.321867-32.707616-27.675675-20.127765h33.965602zM535.90172 421.425061l-2.515971 33.965602 32.707617 12.579853-33.965602 8.805897-2.51597 33.965602-17.611794-28.933661-33.965602 8.805897 22.643735-26.417691-18.869779-28.933661 32.707617 12.579853z" fill="#FBDC00" p-id="3036"></path>
+                  </svg>
+                </i>
+                <i nz-icon *ngIf="item.code === 'en'" style="font-size: 18px">
+                  <svg>
+                    <path d="M6.293101 1017.72549h1517.176471V8.784314H6.293101v1008.941176z m1519.686274 2.509804V1016.470588v3.764706z m-1525.960784 3.764706V1.254902h1529.72549v1021.490196H0.018591z" fill="#353636" p-id="3668"></path><path d="M3.783297 5.019608h1523.45098v1015.215686H3.783297z" fill="#00458F" p-id="3669"></path><path d="M1525.979375 360.156863H917.351924V5.019608H612.410748v355.137255H3.783297V665.098039h608.627451v355.137255h304.941176V665.098039h608.627451z" fill="#FFFFFF" p-id="3670"></path><path d="M1525.979375 903.529412L178.21467 5.019608H3.783297v117.960784l1346.509804 897.254902h175.686274z" fill="#FFFFFF" p-id="3671"></path><path d="M3.783297 903.529412L1351.548003 5.019608h174.431372v117.960784L179.469572 1020.235294H3.783297z" fill="#FFFFFF" p-id="3672"></path><path d="M1525.979375 424.156863H853.351924V5.019608H676.410748v419.137255H3.783297v176.941176h672.627451v419.137255h176.941176V601.098039h672.627451z" fill="#CC3440" p-id="3673"></path><path d="M1525.979375 1017.72549v-80.313725L1116.881336 665.098039h-120.470588zM1525.979375 5.019608h-120.470588L917.351924 330.039216v30.117647h75.294118L1525.979375 5.019608zM533.351924 665.098039L3.783297 1017.72549v2.509804h115.45098l493.176471-327.529412V665.098039zM3.783297 5.019608v80.313725l411.607843 274.82353h121.72549z" fill="#CC3440" p-id="3674"></path>
+                  </svg>
+                </i>
+                {{item.text}}
+              </li>
+            </ul>
+          </nz-dropdown>
+        </div>
+      </div>
+      <!--<div class="desc">{{ 'site-slogan' | translate }}</div>-->
+    </div>
+    <nz-content style="margin-top: 78px">
+      <router-outlet></router-outlet>
+    </nz-content>
+    <global-footer [links]="links">
+      Copyright
+      <i nz-icon type="copyright" theme="outline"></i> 2018
+      <a href="//bossdream.com/" target="_blank">{{ 'site-name' | translate }}</a> {{ 'site-publish' | translate }}
+      <br>
+      联系方式：400-605-2298
+      <br>
+      联系地址：广东省广州市番禺区华创动漫产业园2期17栋
+      <img src="./assets/images/QRCode-2.png">
+    </global-footer>
+  </div>
+</template>

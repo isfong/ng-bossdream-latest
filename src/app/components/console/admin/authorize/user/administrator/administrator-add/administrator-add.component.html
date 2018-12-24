@@ -1,0 +1,333 @@
+<!--suppress ALL -->
+<nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+  <div class="modal-header">
+    <div class="modal-title">新增管理员 带 "*" 号必填</div>
+  </div>
+  <form nz-form [formGroup]="formGroup">
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">
+        用户名
+        <nz-tooltip [nzTitle]="'登录用户名'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <input nz-input formControlName="username"/>
+        <nz-form-explain *ngIf="control('username').dirty&&control('username').hasError('required')">
+          请填写用户名!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('username').dirty&&control('username').hasError('minlength')">
+          至少4个字符!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('username').dirty&&control('username').hasError('pattern')">
+          不能包含空白字符!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('username').dirty&&control('username').hasError('maxlength')">
+          不得超过12个字符!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('username').dirty&&control('username').hasError('exist')">
+          用户名 "{{control('username').value}}" 已经存在!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">
+        密码
+        <nz-tooltip [nzTitle]="'登录密码'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <nz-input-group [nzPrefix]="prefixIconPasswordVisible">
+          <input nz-input formControlName="password" type="{{passwordVisible ? 'text': 'password'}}" autocomplete="false"/>
+        </nz-input-group>
+        <ng-template #prefixIconPasswordVisible>
+          <a nz-tooltip nzTitle="{{passwordVisible? '切换隐藏密码' : '切换显示密码'}}" nzPlacement="topCenter"
+             [nzMouseLeaveDelay]="0"
+             (click)="passwordVisible = !passwordVisible">
+            <i *ngIf="!passwordVisible" nz-icon type="eye" style="color: #0f86eb;"></i>
+            <i *ngIf="passwordVisible" nz-icon style="color: hotpink;">
+              <svg>
+                <path
+                  d="M504.746667 384 640 518.826667C640 516.693333 640 514.133333 640 512 640 441.173333 582.826667 384 512 384 509.44 384 507.306667 384 504.746667 384M321.28 418.133333 387.413333 484.266667C385.28 493.226667 384 502.186667 384 512 384 582.826667 441.173333 640 512 640 521.386667 640 530.773333 638.72 539.733333 636.586667L605.866667 702.72C577.28 716.8 545.706667 725.333333 512 725.333333 394.24 725.333333 298.666667 629.76 298.666667 512 298.666667 478.293333 307.2 446.72 321.28 418.133333M85.333333 182.186667 182.613333 279.466667 201.813333 298.666667C131.413333 354.133333 75.946667 426.666667 42.666667 512 116.48 699.306667 298.666667 832 512 832 578.133333 832 641.28 819.2 698.88 796.16L717.226667 814.08 841.813333 938.666667 896 884.48 139.52 128M512 298.666667C629.76 298.666667 725.333333 394.24 725.333333 512 725.333333 539.306667 719.786667 565.76 709.973333 589.653333L834.986667 714.666667C898.986667 661.333333 950.186667 591.36 981.333333 512 907.52 324.693333 725.333333 192 512 192 452.266667 192 395.093333 202.666667 341.333333 221.866667L433.92 313.6C458.24 304.213333 484.266667 298.666667 512 298.666667Z"/>
+              </svg>
+            </i>
+          </a>
+        </ng-template>
+        <nz-form-explain *ngIf="control('password').dirty&&control('password').hasError('required')">
+          请输入密码!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('password').dirty&&control('password').hasError('minlength')">
+          至少2个字符!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">
+        姓名
+        <nz-tooltip [nzTitle]="'建议填写真是姓名'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <input nz-input formControlName="name"/>
+        <nz-form-explain *ngIf="control('name').dirty&&control('name').hasError('required')">
+          请填写用户名!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="control('name').dirty&&control('name').hasError('maxlength')">
+          不得超过12个字符!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname">
+        昵称
+        <nz-tooltip [nzTitle]="'绰号、混号、诨号'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzHasFeedback]="control('nickname').value && control('nickname').value !== ''">
+        <input nz-input formControlName="nickname"/>
+        <nz-form-explain *ngIf="control('nickname').dirty&&control('nickname').hasError('maxlength')">
+          不得多余12个字符!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">
+        手机号
+        <nz-tooltip [nzTitle]="'联系手机号'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzHasFeedback]="control('phone').value && control('phone').value !== ''">
+        <input nz-input formControlName="phone"/>
+        <nz-form-explain *ngIf="control('phone').dirty&&control('phone').hasError('pattern')">
+          "{{control('phone').value}}" 不是合法的手机号码!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">
+        邮箱
+        <nz-tooltip [nzTitle]="'联系邮箱'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzHasFeedback]="control('email').value && control('email').value !== ''">
+        <input nz-input formControlName="email"/>
+        <nz-form-explain *ngIf="control('email').dirty&&control('email').hasError('email')">
+          "{{control('email').value}}" 不是合法的电子邮箱地址!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender">
+        性别
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-radio-group formControlName="gender" [nzButtonStyle]="'solid'">
+          <label nz-radio-button [nzValue]="0">
+            <i nz-icon style="font-size: 18px;">
+              <svg>
+                <path
+                  d="M358.032 624.101a30.801 30.801 0 1 0 63.039 0 30.801 30.801 0 1 0-63.038 0z m262.99 0a30.801 30.801 0 1 0 63.037 0 30.801 30.801 0 1 0-63.037 0z m226.663-95.005c-0.045-4.295-0.15-8.621-0.363-12.993 0.133-2.305 0.268-4.625 0.407-6.967 0.378-6.357-0.679-13.249-2.849-20.492-13.886-107.69-80.21-226.507-234.402-257.258a68.878 68.878 0 0 0 2.94-19.874c0-41.821-37.568-75.724-83.91-75.724s-83.912 33.903-83.912 75.724a68.86 68.86 0 0 0 2.995 20.048c-172.024 35.076-236.31 182.03-237.282 298.37-24 17.796-39.005 46.12-39.005 77.406 0 39.933 24.435 75.057 60.84 89.588 34.625 219.769 49.248 160.392 49.248 134.317 0-11.919-5.146-45.876-6.574-87.158 13.104 24.085 29.74 46.427 49.67 66.358 54.44 54.44 126.82 84.42 203.808 84.42s149.37-29.98 203.808-84.42a291.336 291.336 0 0 0 34.072-40.95c-1.344 36.572-2.364 68.07-2.364 79.698 0 26.203 25.241-6.882 51.847-118.423 2.764-11.59 5.24-22.466 7.48-32.766 37.966-13.806 63.677-49.704 63.677-90.665 0-31.771-15.472-60.5-40.131-78.239z m-662.078 78.24c0-23.657 9.966-45.358 26.389-60.692 0.219 1.86 0.482 3.585 0.799 5.143l-0.006 0.01c6.465 50.727 12.43 93.471 17.918 129.408-27.278-14.076-45.1-42.222-45.1-73.869z m582.582 135.24c-47.387 82.949-136.716 138.982-238.893 138.982-114.103 0-212.184-69.879-253.723-169.083 1.255-58.505 12.952-123.566 55.943-160.625 46.229-39.85 68.721-105.324 79.592-155.71 10.06 44.267 32.988 97.67 85.256 109.898 88.687 20.747 127.991 21.788 168.505 22.453 19.19 0.315 100.625-3.07 108.812 78.843 0.001 0.001-2.985 69.876-5.492 135.24z m59.298-60.401c11.065-53.957 15.005-90.706 17.404-125.484 1.016-2.847 1.764-6.48 2.238-10.963 17.017 15.377 27.385 37.475 27.385 61.608-0.001 32.388-18.664 61.113-47.027 74.839z"
+                  p-id="5495" fill="#d4237a"></path>
+              </svg>
+            </i>
+          </label>
+          <label nz-radio-button [nzValue]="1">
+            <i nz-icon style="font-size: 18px;">
+              <svg>
+                <path
+                  d="M358.032 624.101a30.801 30.801 0 1 0 63.039 0 30.801 30.801 0 1 0-63.038 0z m262.99 0a30.801 30.801 0 1 0 63.037 0 30.801 30.801 0 1 0-63.037 0z m281.821-218.718s-9.282-79.594-51.964-125.765c0 0 30.007-16.164-2.303-43.842 0 0-28.825-6.924-34.614-4.603 0 0-14.973-50.786-44.979-63.477 0 0-25.401-6.16-31.188 18.465 0 0-67.462-34.322-116.248-42.988 0 0-124.576-23.941-158.028-81.908 0 0-7.225-14.703-30.847-6.064 0 0-22.54 17.877-15.63 89.413 0 0 1.926 14.629-94.235-46.91 0 0-23.83-6.15-30.738 12.298 0 0-12.277 43.84 3.07 76.158 0 0-55.372 9.988-79.258 33.846 0 0-26.88 34.621 18.46 40.003 0 0-67.635 38.459-79.22 146.909 0 0-1.353 76.092 23.042 160.503a96.063 96.063 0 0 0-5.623 44.326c4.764 44.065 38.812 79.014 82.893 85.201 13.907 42.315 37.644 81.083 70.055 113.493 54.438 54.44 126.819 84.42 203.807 84.42s149.37-29.98 203.808-84.42c33.104-33.104 57.143-72.847 70.917-116.22 42.516-5.446 76.437-37.905 83.273-80.361 3.315-20.598-0.159-40.963-9.03-58.588 15.168-44.548 28.314-99.574 24.58-149.89zM249.33 682.28c-34.119-8.148-59.748-36.671-63.563-71.965a83.181 83.181 0 0 1 0.088-18.627c6.146 17.761 13.512 35.604 22.355 52.917 0 0 18.251 18.252 37.067 11.517a287.165 287.165 0 0 0 2.71 13.735l1.343 12.423z m279.966 199.28c-130.877 0-240.674-91.933-268.243-214.609l-2.244-20.76c2.158-2.56 4.264-5.613 6.286-9.26 0 0 2.377-85.405 53.146-136.172 0 0 44.606 12.345 101.533-19.235 0 0-23.867 29.238-45.412 44.62 0 0-12.319 30.005 15.386 33.094 0 0 85.379 16.157 170.757-40.003 0 0-4.605 28.464 36.185 19.984 0 0 33.02-0.757 86.127-41.538 0 0 11.55 19.23 54.978-4.597 0 0-1.124 38.055 33.49 96.9 0 0 15.01 24.478 15.01 67.614 0 0 3.941 3.251 9.851 6.1l-3.555 22.083C758.52 798.913 653.387 881.559 529.296 881.559zM874.16 611.745c-5.58 34.649-32.11 61.567-66.044 68.327a288.21 288.21 0 0 0 2.913-12.22c10.411 0.582 21.853-4.293 29.481-23.616 0 0 15.437-28.599 31.024-70.149a82.776 82.776 0 0 1 2.626 37.658z"
+                  p-id="3135" fill="#1296db"></path>
+              </svg>
+            </i>
+          </label>
+        </nz-radio-group>
+        &nbsp;
+        <nz-tag [nzColor]="'#ff5194'" *ngIf="control('gender').value === 0">女</nz-tag>
+        <nz-tag [nzColor]="'#2db7f5'" *ngIf="control('gender').value === 1">男</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="available">
+        是否可用
+        <nz-tooltip [nzTitle]="'禁用将无法登录'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-radio-group formControlName="available" [nzButtonStyle]="'solid'">
+          <label nz-radio-button [nzValue]="0">
+            <i nz-icon style="font-size: 20px;">
+              <svg>
+                <path
+                  d="M512 853.333333c-187.733333 0-341.333333-153.6-341.333333-341.333333s153.6-341.333333 341.333333-341.333333 341.333333 153.6 341.333333 341.333333-153.6 341.333333-341.333333 341.333333z m0-85.333333c140.8 0 256-115.2 256-256s-115.2-256-256-256-256 115.2-256 256 115.2 256 256 256zM401.066667 341.333333l273.066666 273.066667-59.733333 59.733333L341.333333 401.066667 401.066667 341.333333z"
+                  fill="#fc4d03" p-id="11234"></path>
+              </svg>
+            </i>
+          </label>
+          <label nz-radio-button [nzValue]="1">
+            <i nz-icon style="font-size: 18px;">
+              <svg>
+                <path
+                  d="M511.808642 65.054645c-246.710938 0-446.708971 199.999057-446.708971 446.708971s199.999057 446.708971 446.708971 446.708971 446.708971-199.999057 446.708971-446.708971S758.51958 65.054645 511.808642 65.054645zM792.55986 364.876198 440.896592 716.539466c-7.993045 7.993045-18.467607 11.989055-28.943193 11.989055s-20.951171-3.996011-28.943193-11.989055L231.0564 564.586682c-15.985066-15.985066-15.985066-41.901319 0-57.886385 15.984043-15.985066 41.901319-15.985066 57.886385 0l123.009591 123.009591 322.719052-322.720076c15.985066-15.985066 41.901319-15.985066 57.886385 0C808.544927 322.973856 808.544927 348.891132 792.55986 364.876198z"
+                  p-id="10243" fill="#2aa515"></path>
+              </svg>
+            </i>
+          </label>
+        </nz-radio-group>
+        &nbsp;
+        <nz-tag [nzColor]="'#f50'" *ngIf="control('available').value === 0">禁用</nz-tag>
+        <nz-tag [nzColor]="'#87d068'" *ngIf="control('available').value === 1">可用</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="areaSwitch">
+        区域
+        <nz-tooltip [nzTitle]="'管理员负责区域,下拉框支持搜索'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch nzSize="small" formControlName="areaSwitch" (click)="areaSwitchChange()"></nz-switch>
+        &nbsp;
+        <nz-select *ngIf="control('province').value" style="width: 120px;" [nzSize]="'small'" formControlName="province"
+                   nzShowSearch nzAllowClear (ngModelChange)="areaChange($event)">
+          <nz-option *ngFor="let p of control('provinceList').value" [nzValue]="p" [nzLabel]="p.name"></nz-option>
+        </nz-select>
+        &nbsp;
+        <nz-select *ngIf="control('city').value" style="width: 120px;" [nzSize]="'small'" formControlName="city"
+                   nzShowSearch nzAllowClear (ngModelChange)="areaChange($event)">
+          <nz-option *ngFor="let p of control('cityList').value" [nzValue]="p" [nzLabel]="p.name"></nz-option>
+        </nz-select>
+        &nbsp;
+        <nz-select *ngIf="control('area').value" style="width: 120px;" [nzSize]="'small'" formControlName="area"
+                   nzShowSearch nzAllowClear (ngModelChange)="areaChange($event)">
+          <nz-option *ngFor="let p of control('areaList').value" [nzValue]="p" [nzLabel]="p.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="brandSwitch">
+        品牌
+        <nz-tooltip [nzTitle]="'管理员负责品牌,下拉框支持搜索'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch nzSize="small" formControlName="brandSwitch" (click)="brandSwitchChange()"></nz-switch>
+        &nbsp;
+        <nz-select *ngIf="control('brand').value" style="width: 160px;" [nzSize]="'small'" formControlName="brand"
+                   nzShowSearch nzAllowClear (ngModelChange)="brandChange($event)">
+          <nz-option *ngFor="let b of control('brandList').value" [nzValue]="b" [nzLabel]="b.brandName"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bizZoneSwitch">
+        商圈
+        <nz-tooltip [nzTitle]="'管理员负责商圈,下拉框支持搜索'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch nzSize="small" formControlName="bizZoneSwitch" (click)="bizZoneSwitchChange()"></nz-switch>
+        &nbsp;
+        <nz-select *ngIf="control('bizZone').value" style="width: 160px;" [nzSize]="'small'" formControlName="bizZone"
+                   nzShowSearch nzAllowClear (ngModelChange)="bizZoneChange($event)">
+          <nz-option *ngFor="let b of control('bizZoneList').value" [nzValue]="b" [nzLabel]="b.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="supplierSwitch">
+        供应商
+        <nz-tooltip [nzTitle]="'管理员为供应商账号,下拉框支持搜索'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch nzSize="small" formControlName="supplierSwitch" (click)="supplierSwitchChange()"></nz-switch>
+        &nbsp;
+        <nz-select *ngIf="control('supplier').value" style="width: 160px;" [nzSize]="'small'" formControlName="supplier"
+                   nzShowSearch nzAllowClear (ngModelChange)="supplierChange($event)">
+          <nz-option *ngFor="let s of control('supplierList').value" [nzValue]="s" [nzLabel]="s.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="warehouseSwitch">
+        仓库
+        <nz-tooltip [nzTitle]="'管理员负责仓库,下拉框支持搜索'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch nzSize="small" formControlName="warehouseSwitch" (click)="warehouseSwitchChange()"></nz-switch>
+        &nbsp;
+        <nz-select *ngIf="control('warehouse').value" style="width: 160px;" [nzSize]="'small'" formControlName="warehouse"
+                   nzShowSearch nzAllowClear (ngModelChange)="warehouseChange($event)">
+          <nz-option *ngFor="let s of control('warehouseList').value" [nzValue]="s" [nzLabel]="s.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="avatar">
+        头像
+        <nz-tooltip [nzTitle]="'管理员个人头像'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzHasFeedback]="true">
+        <nz-upload
+          nzListType="picture-card"
+          [nzCustomRequest]="uploadCustomRequest"
+          [(nzFileList)]="uploadFileList"
+          [nzShowUploadList]="true"
+          [nzShowButton]="uploadFileList.length < 1"
+          [nzPreview]="uploadPreview"
+          (nzChange)="uploadChange($event)">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">选择图片</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                  (nzOnCancel)="previewVisible=false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }"/>
+          </ng-template>
+        </nz-modal>
+        <input nz-input type="hidden" formControlName="avatar">
+        <nz-form-explain *ngIf="control('avatar').dirty&&control('avatar').hasError('required')">
+          请选取一张头像!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="modal-footer">
+      <button nz-button [nzType]="'default'" [nzLoading]="loading" (click)="cancel('onCancel')">
+        取消
+      </button>
+      <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="submit()">
+        确定
+      </button>
+    </div>
+  </form>
+</nz-spin>
+

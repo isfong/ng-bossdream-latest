@@ -1,0 +1,89 @@
+<!--suppress HtmlUnknownAttribute, HtmlUnknownTag, HtmlFormInputWithoutLabel -->
+<nz-spin [nzSpinning]="loading" [nzSize]="'large'" [nzTip]="'正在提交数据...'">
+  <div class="modal-header">
+    <div class="modal-title">编辑角色</div>
+  </div>
+  <form nz-form [formGroup]="formGroup">
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">
+        角色名称
+        <nz-tooltip [nzTitle]="'角色的名称，显示使用'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <input nz-input formControlName="name">
+        <nz-form-explain *ngIf="control('name').dirty&&control('name').hasError('required')">
+          请填写角色名!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code">
+        角色代码
+        <nz-tooltip [nzTitle]="'格式ROLE_***'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzHasFeedback]="true">
+        <input nz-input formControlName="code" id="code" (change)="codeChange()">
+        <nz-form-explain *ngIf="control('code').dirty&&control('code').hasError('required')">
+          请填写角色代码!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="notes">
+        角色描述
+        <nz-tooltip [nzTitle]="'角色说明描述信息'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzHasFeedback]="true">
+        <textarea nz-input rows="4" formControlName="notes"></textarea>
+        <nz-form-explain *ngIf="control('notes').dirty&&control('notes').hasError('required')">
+          请填写角色描述信息!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="avatar">
+        角色图片
+        <nz-tooltip [nzTitle]="'角色标识图片'">
+          <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzHasFeedback]="true">
+        <nz-upload
+          nzListType="picture-card"
+          [nzCustomRequest]="uploadCustomRequest"
+          [(nzFileList)]="uploadFileList"
+          [nzShowUploadList]="true"
+          [nzShowButton]="uploadFileList.length < 1"
+          [nzPreview]="uploadPreview"
+          (nzChange)="uploadChange($event)">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">选择图片</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }"/>
+          </ng-template>
+        </nz-modal>
+        <input nz-input type="hidden" formControlName="avatar">
+        <nz-form-explain *ngIf="control('avatar').dirty&&control('avatar').hasError('required')">
+          请选取一张角色图片!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="modal-footer">
+      <button nz-button [nzType]="'default'" [nzLoading]="loading" (click)="cancel('onCancel')">{{cancel_btn}}</button>
+      <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="submit()">{{submit_btn}}</button>
+    </div>
+  </form>
+</nz-spin>

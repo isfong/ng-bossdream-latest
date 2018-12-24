@@ -1,0 +1,23 @@
+<nz-spin [nzSpinning]="loading" [nzSize]="'large'" [nzTip]="'Loading...'">
+  <div class="modal-header">
+    <div class="modal-title">分配角色权限</div>
+  </div>
+  <div class="role-permits">
+    <nz-tree
+      [nzData]="nodes"
+      [nzMultiple]="true"
+      [nzShowLine]="true"
+      [nzSelectedKeys]="selectedKeys"
+      (nzClick)="click($event)"
+    >
+    </nz-tree>
+  </div>
+  <div class="modal-footer">
+    <button nz-button [nzType]="'default'" [nzLoading]="loading" (click)="cancel('onCancel')">
+      {{cancel_btn}}
+    </button>
+    <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="submit()">
+      {{submit_btn}}
+    </button>
+  </div>
+</nz-spin>

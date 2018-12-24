@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src/",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -16,6 +16,56 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app": [
+        "app"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@com": [
+        "app/components"
+      ],
+      "@com/*": [
+        "app/components/*"
+      ],
+      "@mod": [
+        "app/models"
+      ],
+      "@mod/*": [
+        "app/models/*"
+      ],
+      "@ser": [
+        "app/services"
+      ],
+      "@ser/*": [
+        "app/services/*"
+      ],
+      "@sha": [
+        "app/shared"
+      ],
+      "@sha/*": [
+        "app/shared/*"
+      ],
+      "@tes": [
+        "testing/"
+      ],
+      "@tes/*": [
+        "testing/*"
+      ],
+      "@env": [
+        "environments/"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@e2e": [
+        "../e2e"
+      ],
+      "@e2e/*": [
+        "../e2e/*"
+      ]
+    }
   }
 }

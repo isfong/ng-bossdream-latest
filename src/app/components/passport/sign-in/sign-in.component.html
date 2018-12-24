@@ -1,0 +1,53 @@
+<!--suppress HtmlUnknownAttribute, HtmlUnknownTag, HtmlUnknownTarget, BuyFluidPluginNoteInspection -->
+<nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+    <div class="head">
+      <a routerLink="/">
+        <img class="logo" src="./assets/images/logo1.png">
+      </a>
+    </div>
+    <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
+      <nz-tab nzTitle="{{ 'passport.sign-in.sign-in-title' | translate }}">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true"
+                  class="mb-lg"></nz-alert>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzSize="default" [nzPrefix]="usernamePrefixTemplate">
+              <input nz-input formControlName="username" placeholder="{{ 'passport.sign-in.username-placeholder' | translate }}"/>
+            </nz-input-group>
+            <ng-template #usernamePrefixTemplate><i nz-icon type="user"></i></ng-template>
+            <nz-form-explain *ngIf="username.dirty && username.errors">请输入账户名且至少4个字符！</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzSize="default" [nzPrefix]="passwordPrefixTemplate">
+              <input nz-input type="password" formControlName="password"
+                     placeholder="{{ 'passport.sign-in.password-placeholder' | translate }}"/>
+            </nz-input-group>
+            <ng-template #passwordPrefixTemplate><i nz-icon type="lock"></i></ng-template>
+            <nz-form-explain *ngIf="password.dirty && password.errors">
+              请输入密码！
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-tab>
+    </nz-tabset>
+    <nz-form-item>
+      <nz-col [nzSpan]="12">
+        <label nz-checkbox formControlName="remember">{{ 'passport.sign-in.auto-sign-in' | translate }}</label>
+      </nz-col>
+      <nz-col [nzSpan]="12" class="text-right">
+        <a class="forgot" (click)="msg.error('请找欧阳锋')">{{ 'passport.sign-in.forgot-password' | translate }}</a>
+      </nz-col>
+    </nz-form-item>
+    <nz-form-item>
+      <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading"
+              class="ant-btn__block">{{ 'uri.passport.sign-in' | translate }}
+      </button>
+    </nz-form-item>
+  </form>
+  <div class="other">
+    <a class="register" routerLink="/passport/sign-up">{{ 'passport.sign-in.to-sign-up' | translate }}</a>
+  </div>
+</nz-spin>

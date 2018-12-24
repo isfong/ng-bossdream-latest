@@ -1,0 +1,88 @@
+@import '~@delon/theme/styles/default';
+
+:host {
+  display: block;
+  background: #ffffff;
+  padding: 20px;
+  width: 408px;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  margin-left: -204px;
+  top: 50%;
+  margin-top: -320px;
+  box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+  -moz-box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+  -webkit-box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+  ::ng-deep {
+    .head {
+      text-align: center;
+      border-bottom: 1px solid #f1f1f1;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    h3 {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .user-type {
+      text-align: center;
+      margin-bottom: 10px;
+      label {
+        margin: 0 20px;
+      }
+    }
+    .user-gender {
+      width: 100%;
+      .ant-radio-group {
+        width: 100%;
+      }
+      label {
+        width: 50%;
+        text-align: center;
+      }
+    }
+    .ant-form-item {
+      margin-bottom: 18px;
+    }
+    .ant-row {
+      line-height: 32px;
+    }
+    .submit {
+      width: 50%;
+    }
+    .login {
+      float: right;
+      //noinspection LessResolvedByNameOnly
+      line-height: @btn-height-lg;
+    }
+  }
+}
+
+::ng-deep {
+  .register-password-cdk {
+    .success,
+    .warning,
+    .error {
+      transition: color 0.3s;
+    }
+    .success {
+      //noinspection LessResolvedByNameOnly
+      color: @success-color;
+    }
+    .warning {
+      //noinspection LessResolvedByNameOnly
+      color: @warning-color;
+    }
+    .error {
+      //noinspection LessResolvedByNameOnly
+      color: @error-color;
+    }
+    .progress-pass > .progress {
+      .ant-progress-bg {
+        //noinspection LessResolvedByNameOnly
+        background-color: @warning-color;
+      }
+    }
+  }
+}

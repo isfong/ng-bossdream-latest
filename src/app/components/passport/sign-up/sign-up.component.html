@@ -1,0 +1,130 @@
+<!--suppress HtmlUnknownAttribute, JSUnresolvedVariable, HtmlUnknownTag, HtmlFormInputWithoutLabel, HtmlUnknownTarget, BuyFluidPluginNoteInspection -->
+<div class="head">
+  <a routerLink="/">
+    <img class="logo" src="./assets/images/logo1.png">
+  </a>
+</div>
+<!--<span class="title">{{ 'sign-up-title' | translate }}</span>-->
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+  <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+  <nz-form-item class="user-type">
+    <nz-form-control>
+      <nz-radio-group formControlName="userType">
+        <label nz-radio nzValue="1">{{ 'passport.sign-up.user-customer' | translate }}</label>
+        <label nz-radio nzValue="2">{{ 'passport.sign-up.user-server' | translate }}</label>
+      </nz-radio-group>
+      <nz-form-explain *ngIf="userType.dirty && userType.errors">请选择注册类型！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="default" [nzAddOnBefore]="addOnBeforeTemplate">
+        <ng-template #addOnBeforeTemplate>
+          <nz-select formControlName="mobilePrefix" style="width: 100px;">
+            <nz-option [nzLabel]="'+86'" [nzValue]="'+86'"></nz-option>
+            <nz-option [nzLabel]="'+87'" [nzValue]="'+87'"></nz-option>
+          </nz-select>
+        </ng-template>
+        <input formControlName="mobile" placeholder="{{ 'passport.sign-up.phone-placeholder' | translate }}" nz-input>
+      </nz-input-group>
+      <nz-form-explain *ngIf="mobile.dirty && mobile.errors">请输入手机号！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-row [nzGutter]="8">
+        <nz-col [nzSpan]="16">
+          <nz-input-group nzSize="default" [nzPrefix]="captchaPrefix">
+            <input nz-input formControlName="captcha" placeholder="{{ 'passport.sign-up.captcha-placeholder' | translate }}">
+          </nz-input-group>
+          <nz-form-explain *ngIf="captcha.dirty && captcha.errors">请输入验证码！</nz-form-explain>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+          <button nz-button nzSize="default" (click)="getCaptcha()" [disabled]="count" class="ant-btn__block">{{
+            count ?
+            count + 's' : 'passport.sign-up.send-captcha'| translate }}
+          </button>
+        </nz-col>
+      </nz-row>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible"
+                  nzOverlayClassName="register-password-cdk"
+                  [nzOverlayStyle]="{'width.px': 240}">
+        <nz-input-group nzSize="default" nz-popover [nzPrefix]="passwordPrefix">
+          <input nz-input type="password" formControlName="password" placeholder="{{ 'passport.sign-up.password-placeholder' | translate }}">
+        </nz-input-group>
+        <nz-form-explain *ngIf="password.dirty && password.errors">请输入密码！</nz-form-explain>
+        <ng-template #nzTemplate>
+          <div style="padding: 4px 0;">
+            <ng-container [ngSwitch]="status">
+              <div *ngSwitchCase="'ok'" class="success">强度：强</div>
+              <div *ngSwitchCase="'pass'" class="warning">强度：中</div>
+              <div *ngSwitchDefault class="error">强度：太短</div>
+            </ng-container>
+            <div class="progress-{{status}}">
+              <nz-progress [nzPercent]="progress" [nzStatus]="passwordProgressMap[status]"
+                           [nzStrokeWidth]="6"
+                           [nzShowInfo]="false"></nz-progress>
+            </div>
+            <p class="mt-sm">请至少输入 6 个字符。请不要使用容易被猜到的密码。</p>
+          </div>
+        </ng-template>
+      </nz-popover>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="default" [nzPrefix]="passwordPrefix">
+        <input nz-input type="password" formControlName="confirm" placeholder="{{ 'passport.sign-up.confirm-password-placeholder' | translate }}">
+      </nz-input-group>
+      <ng-container *ngIf="confirm.dirty && confirm.errors">
+        <nz-form-explain *ngIf="confirm['errors']?.required">请确认密码！</nz-form-explain>
+        <nz-form-explain *ngIf="confirm['errors']?.equar">两次输入的密码不匹配！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="user-gender">
+    <nz-form-control>
+      <nz-radio-group formControlName="userGender">
+        <label nz-radio-button nzValue="1">{{ 'passport.sign-up.gender-male' | translate }}</label>
+        <label nz-radio-button nzValue="2">{{ 'passport.sign-up.gender-female' | translate }}</label>
+      </nz-radio-group>
+      <nz-form-explain *ngIf="userGender.dirty && userGender.errors">请选择性别！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="default" [nzPrefix]="mailPrefix">
+        <input nz-input formControlName="mail" placeholder="{{ 'passport.sign-up.email-placeholder' | translate }}">
+      </nz-input-group>
+      <ng-container *ngIf="mail.dirty && mail.errors">
+        <nz-form-explain *ngIf="mail['errors']?.required">请输入邮箱地址！</nz-form-explain>
+        <nz-form-explain *ngIf="mail['errors']?.email">邮箱地址格式错误！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="default" [nzPrefix]="mobilePrefix">
+        <input nz-input formControlName="referrer" placeholder="{{ 'passport.sign-up.referrer-phone-placeholder' | translate }}">
+      </nz-input-group>
+      <ng-container *ngIf="referrer.dirty && referrer.errors">
+        <nz-form-explain *ngIf="referrer['errors']?.pattern">请输入11位手机号！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <button nz-button nzType="primary" nzSize="default" type="submit" [nzLoading]="loading" class="submit">
+      <span>{{ 'uri.passport.sign-up' | translate }}</span>
+    </button>
+    <a class="login" routerLink="/passport/sign-in">{{ 'passport.sign-up.to-sign-in' | translate }}</a>
+  </nz-form-item>
+</form>
+<ng-template #captchaPrefix><i nz-icon type="message"></i></ng-template>
+<ng-template #passwordPrefix><i nz-icon type="lock"></i></ng-template>
+<ng-template #mailPrefix><i nz-icon type="mail"></i></ng-template>
+<ng-template #mobilePrefix><i nz-icon type="mobile"></i></ng-template>

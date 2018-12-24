@@ -1,0 +1,68 @@
+@import '~@delon/theme/styles/default';
+
+:host {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  ::ng-deep {
+    .head {
+      text-align: center;
+      border-bottom: 1px solid #f1f1f1;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .ant-tabs .ant-tabs-bar {
+      border-bottom: 0;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .ant-tabs-tab {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .ant-spin-container {
+      background: #ffffff;
+      padding: 20px;
+      width: 408px;
+      border-radius: 5px;
+      position: absolute;
+      left: 50%;
+      margin-left: -204px;
+      top: 50%;
+      margin-top: -260px;
+      box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+      -moz-box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+      -webkit-box-shadow: 0 4px 20px rgba(102, 102, 102, 0.5);
+    }
+    .ant-spin-nested-loading {
+      position: unset;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child) {
+      padding-left: 34px;
+    }
+    .icon {
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.2);
+      margin-left: 16px;
+      vertical-align: middle;
+      cursor: pointer;
+      transition: color 0.3s;
+      &:hover {
+        //noinspection LessResolvedByNameOnly
+        color: @primary-color;
+      }
+    }
+    .other {
+      text-align: left;
+      margin-top: 24px;
+      line-height: 22px;
+      //noinspection CssInvalidHtmlTagReference
+      nz-tooltip {
+        vertical-align: middle;
+      }
+      .register {
+        float: right;
+      }
+    }
+  }
+}

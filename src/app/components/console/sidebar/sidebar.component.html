@@ -1,0 +1,18 @@
+<!--suppress HtmlUnknownTag, HtmlUnknownAttribute -->
+<div class="aside-inner">
+  <nz-dropdown nzTrigger="click" class="user-block">
+    <div nz-dropdown class="user-block-dropdown">
+      <nz-avatar class="avatar" [nzSrc]="ossPre+tokens.sub.avatar"></nz-avatar>
+      <div class="info">
+        <strong>{{tokens.sub.name}}</strong>
+        <p class="text-truncate mb0">{{tokens.sub.email}}</p>
+      </div>
+    </div>
+    <ul nz-menu>
+      <li nz-menu-item (click)="msg.success('profile')">{{ 'profile' | translate }}</li>
+      <li nz-menu-item (click)="msg.success('settings')">{{ 'settings' | translate }}</li>
+      <li nz-menu-item (click)="signOut()">{{ 'logout' | translate }}</li>
+    </ul>
+  </nz-dropdown>
+  <sidebar-nav class="d-block py-lg"></sidebar-nav>
+</div>
